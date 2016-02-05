@@ -55,7 +55,7 @@ public class Drawer {
 	}
 	
 	public void drawPlop(Canvas c) {
-		Rect r = new Rect(0,0,lib.get(R.drawable.tuile1).getWidth(), lib.get(R.drawable.tuile1).getHeight());
+		Rect r = null;
 		//c.drawBitmap(lib.get(R.drawable.tuile1), r, r, paint);
 		
 		int x = 270;
