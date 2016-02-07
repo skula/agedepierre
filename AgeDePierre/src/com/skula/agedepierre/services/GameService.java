@@ -26,17 +26,21 @@ public class GameService {
 	private int[] commoditiesSel;
 	private int buildingsRow;
 
-	public static void main(String[] args) {
-		GameService gs = new GameService(3);
+	public GameService(int nPlayers) {
+		this.nPlayers = nPlayers;
+		this.putAreaId = AreasHandler.AREA_NONE;
+		this.phase = Phase.PUT;
+		this.token = 0;
+		this.roundToken = 0;
+		this.players = new Player[nPlayers];
+		for (int i = 0; i < nPlayers; i++) {
+			this.players[i] = new Player(i);
+		}
 
-		gs.phase = Phase.FEED;
-		System.out.println("phase: " + gs.phase + ", token: " + gs.token);
-		gs.nextPlayer();
-		System.out.println("phase: " + gs.phase + ", token: " + gs.token);
-		gs.nextPlayer();
-		System.out.println("phase: " + gs.phase + ", token: " + gs.token);
-		gs.nextPlayer();
-		System.out.println("phase: " + gs.phase + ", token: " + gs.token);
+		this.gameBoard = new GameBoard(nPlayers);
+		this.areasHandler = new AreasHandler(nPlayers);
+		this.diceRoll = null;
+		this.winFocus = WindowFocus.BOARD;
 	}
 
 	public void nextPlayer() {
@@ -79,23 +83,6 @@ public class GameService {
 		}
 
 		this.putAreaId = AreasHandler.AREA_NONE;
-	}
-
-	public GameService(int nPlayers) {
-		this.nPlayers = nPlayers;
-		this.putAreaId = AreasHandler.AREA_NONE;
-		this.phase = Phase.PUT;
-		this.token = 0;
-		this.roundToken = 0;
-		this.players = new Player[nPlayers];
-		for (int i = 0; i < nPlayers; i++) {
-			this.players[i] = new Player(i);
-		}
-
-		this.gameBoard = new GameBoard(nPlayers);
-		this.areasHandler = new AreasHandler(nPlayers);
-		this.diceRoll = null;
-		this.winFocus = WindowFocus.BOARD;
 	}
 
 	public boolean process(int areaId) {
@@ -243,7 +230,7 @@ public class GameService {
 		case AreasHandler.AREA_BUTTON_SEL_TOOL_MINUS:
 			break;
 		case AreasHandler.AREA_BUTTON_SEL_TOOL_PLUS:
-			if(players[token].getToolsLeft()> 0){
+			if (players[token].getToolsLeft() > 0) {
 				players[token].useTool();
 				diceRoll.addTool();
 			}
@@ -276,8 +263,7 @@ public class GameService {
 			return false;
 		}
 
-		if (this.winFocus == WindowFocus.BOARD
-				&& players[token].getPawnsPlayed() == 0) {
+		if (this.winFocus == WindowFocus.BOARD && players[token].getPawnsPlayed() == 0) {
 			nextPlayer();
 		}
 		return true;
@@ -300,30 +286,24 @@ public class GameService {
 	private void handleCommoditySel(int c, int n) {
 		switch (c) {
 		case Cnst.WOOD_ID:
-			if (commoditiesSel[Cnst.WOOD_ID] + n >= 0
-					&& commoditiesSel[Cnst.WOOD_ID] + n <= players[token]
-							.getWood()) {
+			if (commoditiesSel[Cnst.WOOD_ID] + n >= 0 && commoditiesSel[Cnst.WOOD_ID] + n <= players[token].getWood()) {
 				commoditiesSel[Cnst.WOOD_ID] += n;
 			}
 			break;
 		case Cnst.COPPER_ID:
 			if (commoditiesSel[Cnst.COPPER_ID] + n >= 0
-					&& commoditiesSel[Cnst.COPPER_ID] + n <= players[token]
-							.getCopper()) {
+					&& commoditiesSel[Cnst.COPPER_ID] + n <= players[token].getCopper()) {
 				commoditiesSel[Cnst.COPPER_ID] += n;
 			}
 			break;
 		case Cnst.STONE_ID:
 			if (commoditiesSel[Cnst.STONE_ID] + n >= 0
-					&& commoditiesSel[Cnst.STONE_ID] + n <= players[token]
-							.getStone()) {
+					&& commoditiesSel[Cnst.STONE_ID] + n <= players[token].getStone()) {
 				commoditiesSel[Cnst.STONE_ID] += n;
 			}
 			break;
 		case Cnst.GOLD_ID:
-			if (commoditiesSel[Cnst.GOLD_ID] + n >= 0
-					&& commoditiesSel[Cnst.GOLD_ID] + n <= players[token]
-							.getGold()) {
+			if (commoditiesSel[Cnst.GOLD_ID] + n >= 0 && commoditiesSel[Cnst.GOLD_ID] + n <= players[token].getGold()) {
 				commoditiesSel[Cnst.GOLD_ID] += n;
 			}
 			break;
@@ -332,26 +312,21 @@ public class GameService {
 
 	private void handleToolSel() {
 		// TODO: gérer la liste des outils utilisés dans le tour. Pour l'UI?
-		
+
 	}
 
 	private boolean canBuyBuilding(int id) {
 		Building b = gameBoard.getCurrentBuilding(id);
 		if (b.getCostType() == Building.COST_COUNT_COMMODITY_FIXED) {
 			return players[token].getCommoditiesCount() >= b.getnCommodities()
-					&& players[token].getCommoditiesTypesCount() >= b
-							.getnCommoditiesType();
+					&& players[token].getCommoditiesTypesCount() >= b.getnCommoditiesType();
 
 		} else if (b.getCostType() == Building.COST_COUNT_COMMODITY_NOT_FIXED) {
-			return players[token].getWood() > 0
-					|| players[token].getCopper() > 0
-					|| players[token].getStone() > 0
+			return players[token].getWood() > 0 || players[token].getCopper() > 0 || players[token].getStone() > 0
 					|| players[token].getGold() > 0;
 		} else if (b.getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
-			return players[token].getWood() >= b.getWood()
-					&& players[token].getStone() >= b.getStone()
-					&& players[token].getCopper() >= b.getCopper()
-					&& players[token].getGold() >= b.getGold();
+			return players[token].getWood() >= b.getWood() && players[token].getStone() >= b.getStone()
+					&& players[token].getCopper() >= b.getCopper() && players[token].getGold() >= b.getGold();
 		}
 		return false;
 	}
@@ -368,8 +343,7 @@ public class GameService {
 					cptType++;
 				}
 			}
-			if (cpt == b.getnCommodities()
-					&& cptType == b.getnCommoditiesType()) {
+			if (cpt == b.getnCommodities() && cptType == b.getnCommoditiesType()) {
 				return true;
 			}
 			return false;
@@ -380,10 +354,8 @@ public class GameService {
 			}
 			return cpt <= 7 && cpt > 0;
 		} else if (b.getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
-			return players[token].getWood() >= b.getWood()
-					&& players[token].getStone() >= b.getStone()
-					&& players[token].getCopper() >= b.getCopper()
-					&& players[token].getGold() >= b.getGold();
+			return players[token].getWood() >= b.getWood() && players[token].getStone() >= b.getStone()
+					&& players[token].getCopper() >= b.getCopper() && players[token].getGold() >= b.getGold();
 		}
 		return false;
 	}
