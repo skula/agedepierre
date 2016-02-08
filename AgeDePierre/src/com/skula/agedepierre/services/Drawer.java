@@ -45,8 +45,8 @@ public class Drawer {
 		drawPawns(c);
 		drawPlayers(c);
 		
-		int w = lib.get(R.drawable.pawn).getWidth();
-		int h = lib.get(R.drawable.pawn).getHeight();
+		int w = lib.get(R.drawable.pawn_blue).getWidth();
+		int h = lib.get(R.drawable.pawn_blue).getHeight();
 		c.drawText(w+", " +h, 50, 50, paint);
 	}
 	
@@ -58,10 +58,10 @@ public class Drawer {
 		Rect r = null;
 		//c.drawBitmap(lib.get(R.drawable.tuile1), r, r, paint);
 		
-		int x = 270;
-		int y = 400;
-		r = new Rect(0 ,0,lib.get(R.drawable.pawn).getWidth(), lib.get(R.drawable.pawn).getHeight());
-		c.drawBitmap(lib.get(R.drawable.pawn), r, new Rect(0 + x,0+ y,lib.get(R.drawable.pawn).getWidth()+ x, lib.get(R.drawable.pawn).getHeight()+ y), paint);
+		int x = 325;
+		int y = 405;
+		r = new Rect(0 ,0,lib.get(R.drawable.pawn_blue).getWidth(), lib.get(R.drawable.pawn_blue).getHeight());
+		c.drawBitmap(lib.get(R.drawable.pawn_blue), r, new Rect(0 + x,0+ y,lib.get(R.drawable.pawn_blue).getWidth()+ x, lib.get(R.drawable.pawn_blue).getHeight()+ y), paint);
 		
 		// civ: petit: w83, h126, grand: w160, h200
 		x = 636;
@@ -72,8 +72,8 @@ public class Drawer {
 		// buil: petit: w78, h96, grand: w135, h135
 		x = 20;
 		y = 603;
-		r = new Rect(0 ,0,lib.get(R.drawable.build1).getWidth(), lib.get(R.drawable.build1).getHeight());
-		c.drawBitmap(lib.get(R.drawable.build1), r, new Rect(0 + x,0+ y,lib.get(R.drawable.build1).getWidth()+ x, lib.get(R.drawable.build1).getHeight()+ y), paint);
+		//r = new Rect(0 ,0,lib.get(R.drawable.build1).getWidth(), lib.get(R.drawable.build1).getHeight());
+		//c.drawBitmap(lib.get(R.drawable.build1), r, new Rect(0 + x,0+ y,lib.get(R.drawable.build1).getWidth()+ x, lib.get(R.drawable.build1).getHeight()+ y), paint);
 	}
 		
 	private void drawCommodities(Canvas c){
