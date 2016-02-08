@@ -1,4 +1,4 @@
-package com.skula.agedepierre.constantes;
+package com.skula.agedepierre.cnst;
 
 public class Cnst {
 	public static final int FOOD_ID = 0;

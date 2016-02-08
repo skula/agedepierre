@@ -1,12 +1,18 @@
 package com.skula.agedepierre.services;
 
+import java.util.List;
+
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
 import com.skula.agedepierre.R;
+import com.skula.agedepierre.cnst.DrawerAreas;
 import com.skula.agedepierre.cnst.PictureLibrary;
+import com.skula.agedepierre.models.Building;
+import com.skula.agedepierre.models.GameBoard;
+import com.skula.agedepierre.models.Point;
 
 public class Drawer {
 	private static final int SCREEN_WIDTH = 1280;
@@ -15,22 +21,18 @@ public class Drawer {
 
 	private int BACKGROUND_WIDTH;
 	private int BACKGROUND_HEIGHT;
-	
+
+	private GameEngine gEngine;
 	private PictureLibrary lib;
 	private Paint paint;
 
 	private String log;
-	private int x;
-	private int y;
-	private Rect FOCUS;
 
-	public Drawer(Resources res) {
+	public Drawer(Resources res, GameEngine gEngine) {
 		this.paint = new Paint();
 		this.lib = new PictureLibrary(res);
 
-		this.x = 0;
-		this.y = 0;
-		this.FOCUS = new Rect(x, y, x + SCREEN_WIDTH, y + SCREEN_HEIGHT);
+		this.gEngine = gEngine;
 
 		this.BACKGROUND_WIDTH = lib.get(R.drawable.background).getWidth();
 		this.BACKGROUND_HEIGHT = lib.get(R.drawable.background).getHeight();
@@ -38,93 +40,269 @@ public class Drawer {
 
 	public void draw(Canvas c) {
 		drawBackground(c);
-		drawPlop(c);
-		drawCommodities(c);
-		drawBuildings(c);
-		drawCivilizations(c);
+		// drawCommodities(c);
+		//drawBuildings(c);
+		//drawCivilizations(c);
 		drawPawns(c);
-		drawPlayers(c);
-		
+		// drawPlayers(c);
+
 		int w = lib.get(R.drawable.pawn_blue).getWidth();
 		int h = lib.get(R.drawable.pawn_blue).getHeight();
-		c.drawText(w+", " +h, 50, 50, paint);
+		c.drawText(w + ", " + h, 50, 50, paint);
 	}
-	
+
 	public void drawBackground(Canvas c) {
-		c.drawBitmap(lib.get(R.drawable.background), new Rect(0,0,BACKGROUND_WIDTH, BACKGROUND_HEIGHT), SCREEN_RECT, paint);
-	}
-	
-	public void drawPlop(Canvas c) {
-		Rect r = null;
-		//c.drawBitmap(lib.get(R.drawable.tuile1), r, r, paint);
-		
-		int x = 325;
-		int y = 405;
-		r = new Rect(0 ,0,lib.get(R.drawable.pawn_blue).getWidth(), lib.get(R.drawable.pawn_blue).getHeight());
-		c.drawBitmap(lib.get(R.drawable.pawn_blue), r, new Rect(0 + x,0+ y,lib.get(R.drawable.pawn_blue).getWidth()+ x, lib.get(R.drawable.pawn_blue).getHeight()+ y), paint);
-		
-		// civ: petit: w83, h126, grand: w160, h200
-		x = 636;
-		y = 548;
-		r = new Rect(0 ,0,lib.get(R.drawable.civ0).getWidth(), lib.get(R.drawable.civ0).getHeight());
-		c.drawBitmap(lib.get(R.drawable.civ0), r, new Rect(0 + x,0+ y,lib.get(R.drawable.civ0).getWidth()+ x, lib.get(R.drawable.civ0).getHeight()+ y), paint);
-		
-		// buil: petit: w78, h96, grand: w135, h135
-		x = 20;
-		y = 603;
-		//r = new Rect(0 ,0,lib.get(R.drawable.build1).getWidth(), lib.get(R.drawable.build1).getHeight());
-		//c.drawBitmap(lib.get(R.drawable.build1), r, new Rect(0 + x,0+ y,lib.get(R.drawable.build1).getWidth()+ x, lib.get(R.drawable.build1).getHeight()+ y), paint);
-	}
-		
-	private void drawCommodities(Canvas c){
-	
-	}
-	
-	private void drawBuildings(Canvas c){
-	
-	}
-	
-	private void drawCivilizations(Canvas c){
-	
-	}
-	
-	private void drawPawns(Canvas c){
-	
-	}
-	
-	private void drawPlayers(Canvas c){
-	
+		c.drawBitmap(lib.get(R.drawable.background), new Rect(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT), SCREEN_RECT,
+				paint);
 	}
 
-	private boolean isOnFocus(Rect r) {
-		return FOCUS.contains(r) || Rect.intersects(FOCUS, r);
+	private void drawCommodities(Canvas c) {
+
 	}
 
-	private Rect relates(Rect r) {
-		return new Rect(r.left - x, r.top - y, r.right - x, r.bottom - y);
+	private void drawBuildings(Canvas c) {
+		GameBoard gBoard = gEngine.getGameBoard();
+		int cpt = 1;
+		for (List<Building> l : gBoard.getBuildings()) {
+			if (l.size() > 0) {
+				switch (cpt) {
+				case 1:
+					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_1);
+					break;
+				case 2:
+					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_2);
+					break;
+				case 3:
+					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_3);
+					break;
+				case 4:
+					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_4);
+					break;
+				}
+			}
+			cpt++;
+		}
 	}
 
-	public void moveX(int dx) {
-		if (this.x + dx < 0) {
-			this.x = 0;
-		} else if (this.x + dx > BACKGROUND_WIDTH - SCREEN_WIDTH) {
-			this.x = BACKGROUND_WIDTH - SCREEN_WIDTH;
-		} else {
-			this.x += dx;
+	private void drawCivilizations(Canvas c) {
+		GameBoard gBoard = gEngine.getGameBoard();
+		int cpt = 1;
+		for (int i : gBoard.getCivilizations()) {
+			switch (cpt) {
+			case 1:
+				drawPic(c, i, DrawerAreas.TILE_CIVILIZATION_1);
+				break;
+			case 2:
+				drawPic(c, i, DrawerAreas.TILE_CIVILIZATION_2);
+				break;
+			case 3:
+				drawPic(c, i, DrawerAreas.TILE_CIVILIZATION_3);
+				break;
+			case 4:
+				drawPic(c, i, DrawerAreas.TILE_CIVILIZATION_4);
+				break;
+			}
+			cpt++;
 		}
 
-		FOCUS = new Rect(x, y, x + SCREEN_WIDTH, y + SCREEN_HEIGHT);
 	}
 
-	public void moveY(int dy) {
-		if (this.y + dy < 0) {
-			this.y = 0;
-		} else if (this.y + dy > BACKGROUND_HEIGHT - SCREEN_HEIGHT) {
-			this.y = BACKGROUND_HEIGHT - SCREEN_HEIGHT;
-		} else {
-			this.y += dy;
+	private void drawPawns(Canvas c) {
+		AreasHandler ah = gEngine.getAreasHandler();
+
+		// village
+		if (ah.getHutArea() >= 0) {
+			drawPic(c, getPawnPict(ah.getHutArea()), DrawerAreas.PAWN_HUT_1);
+			drawPic(c, getPawnPict(ah.getHutArea()), DrawerAreas.PAWN_HUT_2);
+		}
+		if (ah.getFarmArea() >= 0) {
+			drawPic(c, getPawnPict(ah.getFarmArea()), DrawerAreas.PAWN_FARM);
+		}
+		if (ah.getFactoryArea() >= 0) {
+			drawPic(c, getPawnPict(ah.getFactoryArea()), DrawerAreas.PAWN_FACTORY);
 		}
 
-		FOCUS = new Rect(x, y, x + SCREEN_WIDTH, y + SCREEN_HEIGHT);
+		// chasse
+		// TODO: a faire
+
+		// ressources
+		int cpt = 1;
+		for (int i : ah.getWoodArea()) {
+			if (i >= 0) {
+				switch (cpt) {
+				case 1:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_1);
+					break;
+				case 2:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_2);
+					break;
+				case 3:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_3);
+					break;
+				case 4:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_4);
+					break;
+				case 5:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_5);
+					break;
+				case 6:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_6);
+					break;
+				case 7:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_7);
+					break;
+				}
+			}
+		}
+		cpt = 1;
+		for (int i : ah.getCopperArea()) {
+			if (i >= 0) {
+				switch (cpt) {
+				case 1:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_1);
+					break;
+				case 2:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_2);
+					break;
+				case 3:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_3);
+					break;
+				case 4:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_4);
+					break;
+				case 5:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_5);
+					break;
+				case 6:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_6);
+					break;
+				case 7:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_7);
+					break;
+				}
+			}
+		}
+		cpt = 1;
+		for (int i : ah.getStoneArea()) {
+			if (i >= 0) {
+				switch (cpt) {
+				case 1:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_1);
+					break;
+				case 2:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_2);
+					break;
+				case 3:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_3);
+					break;
+				case 4:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_4);
+					break;
+				case 5:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_5);
+					break;
+				case 6:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_6);
+					break;
+				case 7:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_7);
+					break;
+				}
+			}
+		}
+		cpt = 1;
+		for (int i : ah.getStoneArea()) {
+			if (i >= 0) {
+				switch (cpt) {
+				case 1:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_1);
+					break;
+				case 2:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_2);
+					break;
+				case 3:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_3);
+					break;
+				case 4:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_4);
+					break;
+				case 5:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_5);
+					break;
+				case 6:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_6);
+					break;
+				case 7:
+					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_7);
+					break;
+				}
+			}
+		}
+
+		// batiments
+		for (int i : ah.getBuildingAreas()) {
+			switch (i) {
+			case 0:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_BUILDING_1);
+				break;
+			case 1:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_BUILDING_2);
+				break;
+			case 2:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_BUILDING_3);
+				break;
+			case 3:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_BUILDING_4);
+				break;
+			default:
+				break;
+			}
+		}
+
+		// civilisations
+		for (int i : ah.getCivilizationAreas()) {
+			switch (i) {
+			case 0:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_CIVILIZATION_1);
+				break;
+			case 1:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_CIVILIZATION_2);
+				break;
+			case 2:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_CIVILIZATION_3);
+				break;
+			case 3:
+				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_CIVILIZATION_4);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	private int getPawnPict(int playerId) {
+		switch (playerId) {
+		case 0:
+			return R.drawable.pawn_red;
+		case 1:
+			return R.drawable.pawn_blue;
+		case 2:
+			return R.drawable.pawn_yellow;
+		case 3:
+			return R.drawable.pawn_green;
+		default:
+			return 0;
+		}
+	}
+
+	private void drawPlayers(Canvas c) {
+
+	}
+
+	private void drawPic(Canvas c, int id, Point p) {
+		Rect src = new Rect(0, 0, lib.get(id).getWidth(), lib.get(id).getHeight());
+		Rect dest = new Rect(0 + p.getX(), 0 + p.getY(), lib.get(id).getWidth() + p.getX(), lib.get(id).getHeight()
+				+ p.getY());
+		c.drawBitmap(lib.get(id), src, dest, paint);
 	}
 }

@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.skula.agedepierre.services.Drawer;
+import com.skula.agedepierre.services.GameEngine;
 
 public class BoardView extends View {
 	private Paint paint;
@@ -16,11 +17,13 @@ public class BoardView extends View {
 	private int x0;
 	private int y0;
 	
+	private GameEngine gEngine;
 
-	public BoardView(Context context) {
+	public BoardView(Context context, GameEngine gEngine) {
 		super(context);
+		this.gEngine = gEngine;
 		this.res = context.getResources();
-		this.drawer = new Drawer(res);
+		this.drawer = new Drawer(res, gEngine);
 		this.paint = new Paint();
 		this.x0 = 0;
 		this.y0 = 0;
@@ -37,8 +40,6 @@ public class BoardView extends View {
 			y0 = y;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			drawer.moveX(x0 - x);
-			drawer.moveY(y0 - y);
 			x0 = x;
 			y0 = y;
 			break;

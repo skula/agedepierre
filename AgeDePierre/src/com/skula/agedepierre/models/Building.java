@@ -5,7 +5,7 @@ public class Building {
 	public static final int COST_COUNT_COMMODITY_FIXED = 1;
 	public static final int COST_COUNT_COMMODITY_NOT_FIXED = 2;
 
-	private int drawId;
+	private int pictId;
 	private int costType;
 	private int nCommodities;
 	private int nCommoditiesType;
@@ -15,22 +15,22 @@ public class Building {
 	private int nGold;
 	private int reward;
 
-	public Building(int id, int costType) {
-		this.drawId = id;
+	public Building(int pictId, int costType) {
+		this.pictId = pictId;
 		this.costType = costType;
 		this.nCommodities = 7;
 	}
 
-	public Building(int id, int costType, int nCommodities, int nCommoditiesType) {
-		this.drawId = id;
+	public Building(int pictId, int costType, int nCommodities, int nCommoditiesType) {
+		this.pictId = pictId;
 		this.costType = costType;
 		this.nCommodities = nCommodities;
 		this.nCommoditiesType = nCommoditiesType;
 	}
 
-	public Building(int id, int costType, int nWood, int nCopper, int nStone,
+	public Building(int pictId, int costType, int nWood, int nCopper, int nStone,
 			int nGold, int reward) {
-		this.drawId = id;
+		this.pictId = pictId;
 		this.costType = costType;
 		this.nWood = nWood;
 		this.nCopper = nCopper;
@@ -39,6 +39,10 @@ public class Building {
 		this.reward = reward;
 	}
 
+	public int getPictId(){
+		return pictId;
+	}
+	
 	public int getCostType() {
 		return costType;
 	}

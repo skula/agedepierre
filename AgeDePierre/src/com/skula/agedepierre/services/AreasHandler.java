@@ -58,17 +58,6 @@ public class AreasHandler {
 	private int[] buildingAreas;
 	private int[] civilisationAreas;
 
-	public static void main(String[] args) {
-		AreasHandler ah = new AreasHandler(2);
-		Player p0 = new Player(0);
-		Player p1 = new Player(1);
-		ah.putPawn(p0, AREA_FOOD);
-		ah.putPawn(p0, AREA_HUT);
-		System.out.println(ah);
-		ah.removePawns(p0, AREA_HUT);
-		System.out.println(ah);
-	}
-
 	public AreasHandler(int nPlayers) {
 		this.nPlayers = nPlayers;
 
@@ -394,8 +383,8 @@ public class AreasHandler {
 	}
 
 	public static boolean isCommodityArea(int areaId) {
-		if (areaId == AREA_FOOD || areaId == AREA_WOOD || areaId == AREA_COPPER
-				|| areaId == AREA_STONE || areaId == AREA_GOLD) {
+		if (areaId == AREA_FOOD || areaId == AREA_WOOD || areaId == AREA_COPPER || areaId == AREA_STONE
+				|| areaId == AREA_GOLD) {
 			return true;
 		}
 
@@ -411,8 +400,8 @@ public class AreasHandler {
 	}
 
 	public static boolean isBuildingArea(int areaId) {
-		if (areaId == AREA_BUILDING_1 || areaId == AREA_BUILDING_2
-				|| areaId == AREA_BUILDING_3 || areaId == AREA_BUILDING_4) {
+		if (areaId == AREA_BUILDING_1 || areaId == AREA_BUILDING_2 || areaId == AREA_BUILDING_3
+				|| areaId == AREA_BUILDING_4) {
 			return true;
 		}
 
@@ -420,8 +409,7 @@ public class AreasHandler {
 	}
 
 	public static boolean isCivilizationArea(int areaId) {
-		if (areaId == AREA_CIVILIZATION_1 || areaId == AREA_CIVILIZATION_2
-				|| areaId == AREA_CIVILIZATION_3
+		if (areaId == AREA_CIVILIZATION_1 || areaId == AREA_CIVILIZATION_2 || areaId == AREA_CIVILIZATION_3
 				|| areaId == AREA_CIVILIZATION_4) {
 			return true;
 		}
@@ -429,14 +417,59 @@ public class AreasHandler {
 		return false;
 	}
 
+	public int[] getBuildingAreas() {
+		return buildingAreas;
+	}
+
+	public int getBuildingArea(int i) {
+		return buildingAreas[i];
+	}
+
+	public int[] getCivilizationAreas() {
+		return civilisationAreas;
+	}
+
+	public int getCivilizationArea(int i) {
+		return civilisationAreas[i];
+	}
+
 	@Override
 	public String toString() {
-		return "foodArea=" + foodArea + "\n" + "woodArea=" + woodArea + "\n"
-				+ "copperArea=" + copperArea + "\n" + "stoneArea=" + stoneArea
-				+ "\n" + "goldArea=" + goldArea + "\n" + "hutArea=" + hutArea
-				+ "\n" + "farmArea=" + farmArea + "\n" + "factoryArea="
-				+ factoryArea + "\n" + "buildingAreas="
-				+ Arrays.toString(buildingAreas) + "\n" + "civilisationAreas="
-				+ Arrays.toString(civilisationAreas);
+		return "foodArea=" + foodArea + "\n" + "woodArea=" + woodArea + "\n" + "copperArea=" + copperArea + "\n"
+				+ "stoneArea=" + stoneArea + "\n" + "goldArea=" + goldArea + "\n" + "hutArea=" + hutArea + "\n"
+				+ "farmArea=" + farmArea + "\n" + "factoryArea=" + factoryArea + "\n" + "buildingAreas="
+				+ Arrays.toString(buildingAreas) + "\n" + "civilisationAreas=" + Arrays.toString(civilisationAreas);
+	}
+
+	public int getHutArea() {
+		return hutArea;
+	}
+
+	public int getFactoryArea() {
+		return factoryArea;
+	}
+
+	public int getFarmArea() {
+		return farmArea;
+	}
+
+	public List<Integer> getWoodArea() {
+		return woodArea;
+	}
+
+	public List<Integer> getFoodArea() {
+		return foodArea;
+	}
+
+	public List<Integer> getCopperArea() {
+		return copperArea;
+	}
+
+	public List<Integer> getStoneArea() {
+		return stoneArea;
+	}
+
+	public List<Integer> getGoldArea() {
+		return goldArea;
 	}
 }

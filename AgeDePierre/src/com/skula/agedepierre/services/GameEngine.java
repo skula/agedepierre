@@ -2,7 +2,7 @@ package com.skula.agedepierre.services;
 
 import java.util.List;
 
-import com.skula.agedepierre.constantes.Cnst;
+import com.skula.agedepierre.cnst.Cnst;
 import com.skula.agedepierre.enums.Phase;
 import com.skula.agedepierre.enums.WindowFocus;
 import com.skula.agedepierre.models.Building;
@@ -10,7 +10,7 @@ import com.skula.agedepierre.models.DiceRoll;
 import com.skula.agedepierre.models.GameBoard;
 import com.skula.agedepierre.models.Player;
 
-public class GameService {
+public class GameEngine {
 	public Player[] players;
 	private int roundToken;
 	public int token;
@@ -26,7 +26,7 @@ public class GameService {
 	private int[] commoditiesSel;
 	private int buildingsRow;
 
-	public GameService(int nPlayers) {
+	public GameEngine(int nPlayers) {
 		this.nPlayers = nPlayers;
 		this.putAreaId = AreasHandler.AREA_NONE;
 		this.phase = Phase.PUT;
@@ -41,6 +41,11 @@ public class GameService {
 		this.areasHandler = new AreasHandler(nPlayers);
 		this.diceRoll = null;
 		this.winFocus = WindowFocus.BOARD;
+		
+		// bouchon areasHandler
+		areasHandler.putPawn(players[token], AreasHandler.AREA_FARM);
+		areasHandler.putPawn(players[1], AreasHandler.AREA_HUT);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_FACTORY);
 	}
 
 	public void nextPlayer() {
@@ -448,8 +453,16 @@ public class GameService {
 			commoditiesSel[i] = 0;
 		}
 	}
+	
+	public GameBoard getGameBoard(){
+		return gameBoard;
+	}
 
 	public void setAreaId(int id) {
 		this.putAreaId = id;
+	}
+
+	public AreasHandler getAreasHandler() {
+		return areasHandler;
 	}
 }
