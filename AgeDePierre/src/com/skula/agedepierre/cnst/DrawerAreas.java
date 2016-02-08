@@ -4,12 +4,12 @@ import com.skula.agedepierre.models.Point;
 
 public class DrawerAreas {
 	public static final Point PAWN_FOOD = new Point(0, 0);
-	public static final Point PAWN_WOOD_1 = new Point(0, 0);
-	public static final Point PAWN_WOOD_6 = new Point(0, 0);
-	public static final Point PAWN_WOOD_5 = new Point(0, 0);
-	public static final Point PAWN_WOOD_4 = new Point(0, 0);
+	public static final Point PAWN_WOOD_1 = new Point(357, 111); //ok
+	public static final Point PAWN_WOOD_2 = new Point(365, 111);
 	public static final Point PAWN_WOOD_3 = new Point(0, 0);
-	public static final Point PAWN_WOOD_2 = new Point(0, 0);
+	public static final Point PAWN_WOOD_4 = new Point(0, 0);
+	public static final Point PAWN_WOOD_5 = new Point(0, 0);
+	public static final Point PAWN_WOOD_6 = new Point(0, 0);
 	public static final Point PAWN_WOOD_7 = new Point(0, 0);
 	public static final Point PAWN_COPPER_1 = new Point(0, 0);
 	public static final Point PAWN_COPPER_6 = new Point(0, 0);

@@ -44,8 +44,14 @@ public class GameEngine {
 		
 		// bouchon areasHandler
 		areasHandler.putPawn(players[token], AreasHandler.AREA_FARM);
-		areasHandler.putPawn(players[1], AreasHandler.AREA_HUT);
 		areasHandler.putPawn(players[token], AreasHandler.AREA_FACTORY);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
 	}
 
 	public void nextPlayer() {
