@@ -152,6 +152,7 @@ public class Drawer {
 					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_WOOD_7);
 					break;
 				}
+				cpt++;
 			}
 		}
 		cpt = 1;
@@ -180,6 +181,7 @@ public class Drawer {
 					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_COPPER_7);
 					break;
 				}
+				cpt++;
 			}
 		}
 		cpt = 1;
@@ -208,6 +210,7 @@ public class Drawer {
 					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_STONE_7);
 					break;
 				}
+				cpt++;
 			}
 		}
 		cpt = 1;
@@ -236,6 +239,7 @@ public class Drawer {
 					drawPic(c, getPawnPict(i), DrawerAreas.PAWN_GOLD_7);
 					break;
 				}
+				cpt++;
 			}
 		}
 

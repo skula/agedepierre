@@ -43,8 +43,6 @@ public class GameEngine {
 		this.winFocus = WindowFocus.BOARD;
 		
 		// bouchon areasHandler
-		areasHandler.putPawn(players[token], AreasHandler.AREA_FARM);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_FACTORY);
 		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
 		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
 		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
