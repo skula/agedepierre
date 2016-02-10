@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import com.skula.agedepierre.R;
 import com.skula.agedepierre.cnst.DrawerAreas;
 import com.skula.agedepierre.cnst.PictureLibrary;
+import com.skula.agedepierre.cnst.TouchAreas;
 import com.skula.agedepierre.models.Building;
 import com.skula.agedepierre.models.GameBoard;
 import com.skula.agedepierre.models.Point;
@@ -45,6 +46,44 @@ public class Drawer {
 		// drawCivilizations(c);
 		drawPawns(c);
 		// drawPlayers(c);
+
+		drawTouchAreas(c);
+	}
+
+	private void drawTouchAreas(Canvas c) {
+		paint.setStyle(Paint.Style.STROKE);
+		paint.setColor(Color.WHITE);
+		c.drawRect(TouchAreas.FOOD, paint);
+		c.drawRect(TouchAreas.WOOD, paint);
+		c.drawRect(TouchAreas.COPPER, paint);
+		c.drawRect(TouchAreas.STONE, paint);
+		c.drawRect(TouchAreas.GOLD, paint);
+		c.drawRect(TouchAreas.BTN_PUT_COMMODITY_CONFIRM, paint);
+		// village, paint);
+		c.drawRect(TouchAreas.FARM, paint);
+		c.drawRect(TouchAreas.HUT, paint);
+		c.drawRect(TouchAreas.FACTORY, paint);
+		// buildings, paint);
+		c.drawRect(TouchAreas.BUILDING_1, paint);
+		c.drawRect(TouchAreas.BUILDING_2, paint);
+		c.drawRect(TouchAreas.BUILDING_3, paint);
+		c.drawRect(TouchAreas.BUILDING_4, paint);
+		// civilisations, paint);
+		c.drawRect(TouchAreas.CIVILIZATION_1, paint);
+		c.drawRect(TouchAreas.CIVILIZATION_2, paint);
+		c.drawRect(TouchAreas.CIVILIZATION_3, paint);
+		c.drawRect(TouchAreas.CIVILIZATION_4, paint);
+		// fenetre de choix des ressources, paint);
+		c.drawRect(TouchAreas.BTN_SEL_WOOD, paint);
+		c.drawRect(TouchAreas.BTN_SEL_COPPER, paint);
+		c.drawRect(TouchAreas.BTN_SEL_STONE, paint);
+		c.drawRect(TouchAreas.BTN_SEL_GOLD, paint);
+		c.drawRect(TouchAreas.BTN_SEL_COMMODITY_RESET, paint);
+		c.drawRect(TouchAreas.BTN_SEL_COMMODITY_CONFIRM, paint);
+		// fenetre lancé de dés, paint);
+		c.drawRect(TouchAreas.BTN_SEL_TOOL, paint);
+		c.drawRect(TouchAreas.BTN_SEL_TOOL_RESET, paint);
+		c.drawRect(TouchAreas.BTN_SEL_TOOL_CONFIRM, paint);
 	}
 
 	public void drawBackground(Canvas c) {
@@ -56,15 +95,13 @@ public class Drawer {
 		paint.setColor(Color.WHITE);
 		paint.setTextSize(22f);
 		GameBoard gBoard = gEngine.getGameBoard();
-		c.drawText(""+gBoard.getWood(), DrawerAreas.COUNT_LEFT_WOOD.getX(), DrawerAreas.COUNT_LEFT_WOOD.getY(),
+		c.drawText("" + gBoard.getWood(), DrawerAreas.COUNT_LEFT_WOOD.getX(), DrawerAreas.COUNT_LEFT_WOOD.getY(), paint);
+		c.drawText("" + gBoard.getCopper(), DrawerAreas.COUNT_LEFT_COPPER.getX(), DrawerAreas.COUNT_LEFT_COPPER.getY(),
 				paint);
-		c.drawText("" + gBoard.getCopper(), DrawerAreas.COUNT_LEFT_COPPER.getX(),
-				DrawerAreas.COUNT_LEFT_COPPER.getY(), paint);
 		paint.setColor(Color.BLACK);
 		c.drawText("" + gBoard.getStone(), DrawerAreas.COUNT_LEFT_STONE.getX(), DrawerAreas.COUNT_LEFT_STONE.getY(),
 				paint);
-		c.drawText("" + gBoard.getGold(), DrawerAreas.COUNT_LEFT_GOLD.getX(), DrawerAreas.COUNT_LEFT_GOLD.getY(),
-				paint);
+		c.drawText("" + gBoard.getGold(), DrawerAreas.COUNT_LEFT_GOLD.getX(), DrawerAreas.COUNT_LEFT_GOLD.getY(), paint);
 	}
 
 	private void drawBuildings(Canvas c) {
@@ -125,18 +162,18 @@ public class Drawer {
 	}
 
 	private void drawPawns(Canvas c) {
-		AreasHandler ah = gEngine.getAreasHandler();
+		PawnsManager pm = gEngine.getPawnsManager();
 
 		// village
-		if (ah.getHutArea() >= 0) {
-			drawPic(c, getPawnPict(ah.getHutArea()), DrawerAreas.PAWN_HUT_1);
-			drawPic(c, getPawnPict(ah.getHutArea()), DrawerAreas.PAWN_HUT_2);
+		if (pm.getHutArea() >= 0) {
+			drawPic(c, getPawnPict(pm.getHutArea()), DrawerAreas.PAWN_HUT_1);
+			drawPic(c, getPawnPict(pm.getHutArea()), DrawerAreas.PAWN_HUT_2);
 		}
-		if (ah.getFarmArea() >= 0) {
-			drawPic(c, getPawnPict(ah.getFarmArea()), DrawerAreas.PAWN_FARM);
+		if (pm.getFarmArea() >= 0) {
+			drawPic(c, getPawnPict(pm.getFarmArea()), DrawerAreas.PAWN_FARM);
 		}
-		if (ah.getFactoryArea() >= 0) {
-			drawPic(c, getPawnPict(ah.getFactoryArea()), DrawerAreas.PAWN_FACTORY);
+		if (pm.getFactoryArea() >= 0) {
+			drawPic(c, getPawnPict(pm.getFactoryArea()), DrawerAreas.PAWN_FACTORY);
 		}
 
 		// chasse
@@ -144,7 +181,7 @@ public class Drawer {
 
 		// ressources
 		int cpt = 1;
-		for (int i : ah.getWoodArea()) {
+		for (int i : pm.getWoodArea()) {
 			if (i >= 0) {
 				switch (cpt) {
 				case 1:
@@ -173,7 +210,7 @@ public class Drawer {
 			}
 		}
 		cpt = 1;
-		for (int i : ah.getCopperArea()) {
+		for (int i : pm.getCopperArea()) {
 			if (i >= 0) {
 				switch (cpt) {
 				case 1:
@@ -202,7 +239,7 @@ public class Drawer {
 			}
 		}
 		cpt = 1;
-		for (int i : ah.getStoneArea()) {
+		for (int i : pm.getStoneArea()) {
 			if (i >= 0) {
 				switch (cpt) {
 				case 1:
@@ -231,7 +268,7 @@ public class Drawer {
 			}
 		}
 		cpt = 1;
-		for (int i : ah.getStoneArea()) {
+		for (int i : pm.getStoneArea()) {
 			if (i >= 0) {
 				switch (cpt) {
 				case 1:
@@ -261,7 +298,7 @@ public class Drawer {
 		}
 
 		// batiments
-		for (int i : ah.getBuildingAreas()) {
+		for (int i : pm.getBuildingAreas()) {
 			switch (i) {
 			case 0:
 				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_BUILDING_1);
@@ -281,7 +318,7 @@ public class Drawer {
 		}
 
 		// civilisations
-		for (int i : ah.getCivilizationAreas()) {
+		for (int i : pm.getCivilizationAreas()) {
 			switch (i) {
 			case 0:
 				drawPic(c, getPawnPict(i), DrawerAreas.PAWN_CIVILIZATION_1);

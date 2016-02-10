@@ -3,6 +3,7 @@ package com.skula.agedepierre.services;
 import java.util.List;
 
 import com.skula.agedepierre.cnst.Cnst;
+import com.skula.agedepierre.cnst.TouchAreas;
 import com.skula.agedepierre.enums.Phase;
 import com.skula.agedepierre.enums.WindowFocus;
 import com.skula.agedepierre.models.Building;
@@ -17,7 +18,7 @@ public class GameEngine {
 	private int nPlayers;
 	public Phase phase;
 	private GameBoard gameBoard;
-	private AreasHandler areasHandler;
+	private PawnsManager pawnsManager;
 	private WindowFocus winFocus;
 
 	// variables temporaires
@@ -28,7 +29,7 @@ public class GameEngine {
 
 	public GameEngine(int nPlayers) {
 		this.nPlayers = nPlayers;
-		this.putAreaId = AreasHandler.AREA_NONE;
+		this.putAreaId = TouchAreas.NONE;
 		this.phase = Phase.PUT;
 		this.token = 0;
 		this.roundToken = 0;
@@ -38,18 +39,18 @@ public class GameEngine {
 		}
 
 		this.gameBoard = new GameBoard(nPlayers);
-		this.areasHandler = new AreasHandler(nPlayers);
+		this.pawnsManager = new PawnsManager(nPlayers);
 		this.diceRoll = null;
 		this.winFocus = WindowFocus.BOARD;
-		
-		// bouchon areasHandler
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
-		areasHandler.putPawn(players[token], AreasHandler.AREA_WOOD);
+
+		// bouchon pawnsManager
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
+		pawnsManager.putPawn(players[token], TouchAreas.WOOD_ID);
 	}
 
 	public void nextPlayer() {
@@ -91,7 +92,7 @@ public class GameEngine {
 			break;
 		}
 
-		this.putAreaId = AreasHandler.AREA_NONE;
+		this.putAreaId = TouchAreas.NONE;
 	}
 
 	public boolean process(int areaId) {
@@ -110,15 +111,15 @@ public class GameEngine {
 	private boolean processPUT(int areaId) {
 		boolean res = false;
 		// 1) cas de fin de population d'une zone a plusieurs pions
-		if (areaId == AreasHandler.AREA_BUTTON_OK) {
+		if (areaId == TouchAreas.BTN_PUT_COMMODITY_CONFIRM_ID) {
 			nextPlayer();
 			return true;
 		}
 		// 2) cas de population d'une zone a plusieurs pions
-		if (AreasHandler.isCommodityArea(areaId)) {
+		if (PawnsManager.isCommodityArea(areaId)) {
 			// 2.1) cas de debut de population
-			if (putAreaId == AreasHandler.AREA_NONE) {
-				res = areasHandler.putPawn(players[token], areaId);
+			if (putAreaId == TouchAreas.NONE) {
+				res = pawnsManager.putPawn(players[token], areaId);
 				if (res) {
 					putAreaId = areaId;
 				}
@@ -128,11 +129,11 @@ public class GameEngine {
 				if (putAreaId != areaId) {
 					return false;
 				}
-				return areasHandler.putPawn(players[token], areaId);
+				return pawnsManager.putPawn(players[token], areaId);
 			}
 		} // 3) cas de population d'une zone a pion unique
 		else {
-			res = areasHandler.putPawn(players[token], areaId);
+			res = pawnsManager.putPawn(players[token], areaId);
 			if (res) {
 				nextPlayer();
 			}
@@ -141,43 +142,43 @@ public class GameEngine {
 	}
 
 	private boolean processUSE(int areaId) {
-		int nPawns = areasHandler.removePawns(players[token], areaId);
+		int nPawns = pawnsManager.removePawns(players[token], areaId);
 		if (nPawns == 0) {
 			return false;
 		}
 
 		switch (areaId) {
 		// TODO: choix utiliser outil ou pas pour les ressources
-		case AreasHandler.AREA_FOOD:
+		case TouchAreas.FOOD_ID:
 			this.diceRoll = new DiceRoll(nPawns, DiceRoll.DIVISOR_FOOD);
 			this.winFocus = WindowFocus.DICES_ROLL;
 			break;
-		case AreasHandler.AREA_WOOD:
+		case TouchAreas.WOOD_ID:
 			this.diceRoll = new DiceRoll(nPawns, DiceRoll.DIVISOR_WOOD);
 			this.winFocus = WindowFocus.DICES_ROLL;
 			break;
-		case AreasHandler.AREA_COPPER:
+		case TouchAreas.COPPER_ID:
 			this.diceRoll = new DiceRoll(nPawns, DiceRoll.DIVISOR_COPPER);
 			this.winFocus = WindowFocus.DICES_ROLL;
 			break;
-		case AreasHandler.AREA_STONE:
+		case TouchAreas.STONE_ID:
 			this.diceRoll = new DiceRoll(nPawns, DiceRoll.DIVISOR_STONE);
 			this.winFocus = WindowFocus.DICES_ROLL;
 			break;
-		case AreasHandler.AREA_GOLD:
+		case TouchAreas.GOLD_ID:
 			this.diceRoll = new DiceRoll(nPawns, DiceRoll.DIVISOR_GOLD);
 			this.winFocus = WindowFocus.DICES_ROLL;
 			break;
-		case AreasHandler.AREA_HUT:
+		case TouchAreas.HUT_ID:
 			players[token].addPawn();
 			break;
-		case AreasHandler.AREA_FARM:
+		case TouchAreas.FARM_ID:
 			players[token].addFarm();
 			break;
-		case AreasHandler.AREA_FACTORY:
+		case TouchAreas.FACTORY_ID:
 			players[token].addTools(1);
 			break;
-		case AreasHandler.AREA_BUILDING_1:
+		case TouchAreas.BUILDING_1_ID:
 			if (canBuyBuilding(0)) {
 				if (gameBoard.getCurrentBuilding(0).getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
 					resolveBuilding(0);
@@ -187,7 +188,7 @@ public class GameEngine {
 				}
 			}
 			break;
-		case AreasHandler.AREA_BUILDING_2:
+		case TouchAreas.BUILDING_2_ID:
 			if (canBuyBuilding(1)) {
 				if (gameBoard.getCurrentBuilding(1).getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
 					resolveBuilding(1);
@@ -197,7 +198,7 @@ public class GameEngine {
 				}
 			}
 			break;
-		case AreasHandler.AREA_BUILDING_3:
+		case TouchAreas.BUILDING_3_ID:
 			if (canBuyBuilding(2)) {
 				if (gameBoard.getCurrentBuilding(2).getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
 					resolveBuilding(2);
@@ -207,7 +208,7 @@ public class GameEngine {
 				}
 			}
 			break;
-		case AreasHandler.AREA_BUILDING_4:
+		case TouchAreas.BUILDING_4_ID:
 			if (canBuyBuilding(3)) {
 				if (gameBoard.getCurrentBuilding(3).getCostType() == Building.COST_TYPE_COMMODITY_FIXED) {
 					resolveBuilding(3);
@@ -217,56 +218,50 @@ public class GameEngine {
 				}
 			}
 			break;
-		case AreasHandler.AREA_CIVILIZATION_1:
+		case TouchAreas.CIVILIZATION_1_ID:
 			resolveCivilization(players[token], gameBoard.removeCivilization(0));
 			break;
-		case AreasHandler.AREA_CIVILIZATION_2:
+		case TouchAreas.CIVILIZATION_2_ID:
 			resolveCivilization(players[token], gameBoard.removeCivilization(1));
 			break;
-		case AreasHandler.AREA_CIVILIZATION_3:
+		case TouchAreas.CIVILIZATION_3_ID:
 			resolveCivilization(players[token], gameBoard.removeCivilization(2));
 			break;
-		case AreasHandler.AREA_CIVILIZATION_4:
+		case TouchAreas.CIVILIZATION_4_ID:
 			resolveCivilization(players[token], gameBoard.removeCivilization(3));
 			break;
-		case AreasHandler.AREA_BUTTON_BACK:
+		case TouchAreas.BTN_PUT_COMMODITY_CONFIRM_ID:
+			// TODO
 			break;
-		case AreasHandler.AREA_BUTTON_CANCEL:
-			break;
-		case AreasHandler.AREA_BUTTON_OK:
-			resolveBuilding(buildingsRow);
-			break;
-		case AreasHandler.AREA_BUTTON_SEL_TOOL_MINUS:
-			break;
-		case AreasHandler.AREA_BUTTON_SEL_TOOL_PLUS:
+		case TouchAreas.BTN_SEL_TOOL_ID:
 			if (players[token].getToolsLeft() > 0) {
 				players[token].useTool();
 				diceRoll.addTool();
 			}
 			break;
-		case AreasHandler.AREA_BUTTON_SEL_WOOD_MINUS:
-			handleCommoditySel(Cnst.WOOD_ID, -1);
+		case TouchAreas.BTN_SEL_TOOL_RESET_ID:
+			// TODO
 			break;
-		case AreasHandler.AREA_BUTTON_SEL_WOOD_PLUS:
+		case TouchAreas.BTN_SEL_TOOL_CONFIRM_ID:
+			// TODO
+			break;
+		case TouchAreas.BTN_SEL_WOOD_ID:
 			handleCommoditySel(Cnst.WOOD_ID, 1);
 			break;
-		case AreasHandler.AREA_BUTTON_SEL_COPPER_MINUS:
-			handleCommoditySel(Cnst.COPPER_ID, -1);
-			break;
-		case AreasHandler.AREA_BUTTON_SEL_COPPER_PLUS:
+		case TouchAreas.BTN_SEL_COPPER_ID:
 			handleCommoditySel(Cnst.COPPER_ID, 1);
 			break;
-		case AreasHandler.AREA_BUTTON_SEL_STONE_MINUS:
-			handleCommoditySel(Cnst.STONE_ID, -1);
-			break;
-		case AreasHandler.AREA_BUTTON_SEL_STONE_PLUS:
+		case TouchAreas.BTN_SEL_STONE_ID:
 			handleCommoditySel(Cnst.STONE_ID, 1);
 			break;
-		case AreasHandler.AREA_BUTTON_SEL_GOLD_MINUS:
-			handleCommoditySel(Cnst.GOLD_ID, -1);
-			break;
-		case AreasHandler.AREA_BUTTON_SEL_GOLD_PLUS:
+		case TouchAreas.BTN_SEL_GOLD_ID:
 			handleCommoditySel(Cnst.GOLD_ID, 1);
+			break;
+		case TouchAreas.BTN_SEL_COMMODITY_RESET_ID:
+			// TODO
+			break;
+		case TouchAreas.BTN_SEL_COMMODITY_CONFIRM_ID:
+			// TODO
 			break;
 		default:
 			return false;
@@ -457,8 +452,8 @@ public class GameEngine {
 			commoditiesSel[i] = 0;
 		}
 	}
-	
-	public GameBoard getGameBoard(){
+
+	public GameBoard getGameBoard() {
 		return gameBoard;
 	}
 
@@ -466,7 +461,11 @@ public class GameEngine {
 		this.putAreaId = id;
 	}
 
-	public AreasHandler getAreasHandler() {
-		return areasHandler;
+	public PawnsManager getPawnsManager() {
+		return pawnsManager;
+	}
+
+	public WindowFocus getWinFocus() {
+		return winFocus;
 	}
 }

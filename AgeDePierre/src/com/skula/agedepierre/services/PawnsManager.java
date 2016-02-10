@@ -4,46 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.skula.agedepierre.cnst.TouchAreas;
 import com.skula.agedepierre.models.Player;
 
-public class AreasHandler {
-	public static final int AREA_NONE = -1;
-	// zones des denrées
-	public static final int AREA_FOOD = 0;
-	public static final int AREA_WOOD = 1;
-	public static final int AREA_COPPER = 2;
-	public static final int AREA_STONE = 3;
-	public static final int AREA_GOLD = 4;
-	// zones du village
-	public static final int AREA_FARM = 5;
-	public static final int AREA_HUT = 6;
-	public static final int AREA_FACTORY = 7;
-	// zones batiments
-	public static final int AREA_BUILDING_1 = 8;
-	public static final int AREA_BUILDING_2 = 9;
-	public static final int AREA_BUILDING_3 = 10;
-	public static final int AREA_BUILDING_4 = 11;
-	// zones civilization
-	public static final int AREA_CIVILIZATION_1 = 12;
-	public static final int AREA_CIVILIZATION_2 = 13;
-	public static final int AREA_CIVILIZATION_3 = 14;
-	public static final int AREA_CIVILIZATION_4 = 15;
-
-	// zones boutons
-	public static final int AREA_BUTTON_BACK = 16;
-	public static final int AREA_BUTTON_OK = 17;
-	public static final int AREA_BUTTON_CANCEL = 18;
-	public static final int AREA_BUTTON_SEL_TOOL_PLUS = 19;
-	public static final int AREA_BUTTON_SEL_TOOL_MINUS = 20;
-	public static final int AREA_BUTTON_SEL_WOOD_PLUS = 21;
-	public static final int AREA_BUTTON_SEL_COPPER_PLUS = 22;
-	public static final int AREA_BUTTON_SEL_STONE_PLUS = 23;
-	public static final int AREA_BUTTON_SEL_GOLD_PLUS = 24;
-	public static final int AREA_BUTTON_SEL_WOOD_MINUS = 25;
-	public static final int AREA_BUTTON_SEL_COPPER_MINUS = 26;
-	public static final int AREA_BUTTON_SEL_STONE_MINUS = 27;
-	public static final int AREA_BUTTON_SEL_GOLD_MINUS = 28;
-
+public class PawnsManager {
 	private int nPlayers;
 	private List<Integer> foodArea;
 	private List<Integer> woodArea;
@@ -58,7 +22,7 @@ public class AreasHandler {
 	private int[] buildingAreas;
 	private int[] civilisationAreas;
 
-	public AreasHandler(int nPlayers) {
+	public PawnsManager(int nPlayers) {
 		this.nPlayers = nPlayers;
 
 		this.foodArea = new ArrayList<Integer>();
@@ -84,7 +48,7 @@ public class AreasHandler {
 
 	public boolean putPawn(Player player, int areaId) {
 		switch (areaId) {
-		case AREA_FOOD:
+		case TouchAreas.FOOD_ID:
 			if (player.getPawnLeft() > 1) {
 				foodArea.add(player.getId());
 				player.putPawn();
@@ -92,13 +56,13 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_WOOD:
+		case TouchAreas.WOOD_ID:
 			return handleCommodityArea(player, woodArea);
-		case AREA_COPPER:
+		case TouchAreas.COPPER_ID:
 			handleCommodityArea(player, copperArea);
-		case AREA_GOLD:
+		case TouchAreas.GOLD_ID:
 			handleCommodityArea(player, goldArea);
-		case AREA_HUT:
+		case TouchAreas.HUT_ID:
 			if (hutArea == -1 && player.getPawnLeft() > 2) {
 				hutArea = player.getId();
 				player.putPawn();
@@ -107,7 +71,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_FARM:
+		case TouchAreas.FARM_ID:
 			if (farmArea == -1 && player.getPawnLeft() > 1) {
 				farmArea = player.getId();
 				player.putPawn();
@@ -115,7 +79,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_FACTORY:
+		case TouchAreas.FACTORY_ID:
 			if (factoryArea == -1 && player.getPawnLeft() > 1) {
 				factoryArea = player.getId();
 				player.putPawn();
@@ -123,7 +87,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_BUILDING_1:
+		case TouchAreas.BUILDING_1_ID:
 			if (buildingAreas[0] == -1 && player.getPawnLeft() > 1) {
 				buildingAreas[0] = player.getId();
 				player.putPawn();
@@ -131,7 +95,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_BUILDING_2:
+		case TouchAreas.BUILDING_2_ID:
 			if (buildingAreas[1] == -1 && player.getPawnLeft() > 1) {
 				buildingAreas[1] = player.getId();
 				player.putPawn();
@@ -139,7 +103,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_BUILDING_3:
+		case TouchAreas.BUILDING_3_ID:
 			if (buildingAreas[2] == -1 && player.getPawnLeft() > 1) {
 				buildingAreas[2] = player.getId();
 				player.putPawn();
@@ -147,7 +111,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_BUILDING_4:
+		case TouchAreas.BUILDING_4_ID:
 			if (buildingAreas[3] == -1 && player.getPawnLeft() > 1) {
 				buildingAreas[3] = player.getId();
 				player.putPawn();
@@ -155,7 +119,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_CIVILIZATION_1:
+		case TouchAreas.CIVILIZATION_1_ID:
 			if (civilisationAreas[0] == -1 && player.getPawnLeft() > 1) {
 				civilisationAreas[0] = player.getId();
 				player.putPawn();
@@ -163,7 +127,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_CIVILIZATION_2:
+		case TouchAreas.CIVILIZATION_2_ID:
 			if (civilisationAreas[1] == -1 && player.getPawnLeft() > 1) {
 				civilisationAreas[1] = player.getId();
 				player.putPawn();
@@ -171,7 +135,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_CIVILIZATION_3:
+		case TouchAreas.CIVILIZATION_3_ID:
 			if (civilisationAreas[2] == -1 && player.getPawnLeft() > 1) {
 				civilisationAreas[2] = player.getId();
 				player.putPawn();
@@ -179,7 +143,7 @@ public class AreasHandler {
 			} else {
 				return false;
 			}
-		case AREA_CIVILIZATION_4:
+		case TouchAreas.CIVILIZATION_4_ID:
 			if (civilisationAreas[3] == -1 && player.getPawnLeft() > 1) {
 				civilisationAreas[3] = player.getId();
 				player.putPawn();
@@ -222,7 +186,7 @@ public class AreasHandler {
 		int cpt = 0;
 		List<Integer> tmp = new ArrayList<Integer>();
 		switch (areaId) {
-		case AREA_FOOD:
+		case TouchAreas.FOOD_ID:
 			for (Integer i : foodArea) {
 				if (i != player.getId()) {
 					tmp.add(i);
@@ -233,7 +197,7 @@ public class AreasHandler {
 			foodArea = tmp;
 			player.removePawns(cpt);
 			return cpt;
-		case AREA_WOOD:
+		case TouchAreas.WOOD_ID:
 			for (Integer i : woodArea) {
 				if (i != player.getId()) {
 					tmp.add(i);
@@ -244,7 +208,7 @@ public class AreasHandler {
 			woodArea = tmp;
 			player.removePawns(cpt);
 			return cpt;
-		case AREA_COPPER:
+		case TouchAreas.COPPER_ID:
 			for (Integer i : copperArea) {
 				if (i != player.getId()) {
 					tmp.add(i);
@@ -255,7 +219,7 @@ public class AreasHandler {
 			copperArea = tmp;
 			player.removePawns(cpt);
 			return cpt;
-		case AREA_GOLD:
+		case TouchAreas.GOLD_ID:
 			for (Integer i : goldArea) {
 				if (i != player.getId()) {
 					tmp.add(i);
@@ -266,7 +230,7 @@ public class AreasHandler {
 			goldArea = tmp;
 			player.removePawns(cpt);
 			return cpt;
-		case AREA_STONE:
+		case TouchAreas.STONE_ID:
 			for (Integer i : goldArea) {
 				if (i != player.getId()) {
 					tmp.add(i);
@@ -279,7 +243,7 @@ public class AreasHandler {
 			return cpt;
 			// TODO: gérer le nombre de pions dans le village en fonction du
 			// nombre de joueurs
-		case AREA_HUT:
+		case TouchAreas.HUT_ID:
 			if (hutArea == player.getId()) {
 				hutArea = -1;
 				player.removePawns(2);
@@ -287,7 +251,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_FARM:
+		case TouchAreas.FARM_ID:
 			if (farmArea == player.getId()) {
 				farmArea = -1;
 				player.removePawns(1);
@@ -295,7 +259,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_FACTORY:
+		case TouchAreas.FACTORY_ID:
 			if (factoryArea == player.getId()) {
 				factoryArea = -1;
 				player.removePawns(1);
@@ -303,7 +267,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_BUILDING_1:
+		case TouchAreas.BUILDING_1_ID:
 			if (buildingAreas[0] == player.getId()) {
 				buildingAreas[0] = -1;
 				player.removePawns(1);
@@ -311,7 +275,7 @@ public class AreasHandler {
 			} else {
 				return -1;
 			}
-		case AREA_BUILDING_2:
+		case TouchAreas.BUILDING_2_ID:
 			if (buildingAreas[1] == player.getId()) {
 				buildingAreas[1] = -1;
 				player.removePawns(1);
@@ -319,7 +283,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_BUILDING_3:
+		case TouchAreas.BUILDING_3_ID:
 			if (buildingAreas[2] == player.getId()) {
 				buildingAreas[2] = -1;
 				player.removePawns(1);
@@ -327,7 +291,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_BUILDING_4:
+		case TouchAreas.BUILDING_4_ID:
 			if (buildingAreas[3] == player.getId()) {
 				buildingAreas[3] = -1;
 				player.removePawns(1);
@@ -335,7 +299,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_CIVILIZATION_1:
+		case TouchAreas.CIVILIZATION_1_ID:
 			if (civilisationAreas[0] == player.getId()) {
 				civilisationAreas[0] = -1;
 				player.removePawns(1);
@@ -343,7 +307,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_CIVILIZATION_2:
+		case TouchAreas.CIVILIZATION_2_ID:
 			if (civilisationAreas[1] == player.getId()) {
 				civilisationAreas[1] = -1;
 				player.removePawns(1);
@@ -351,7 +315,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_CIVILIZATION_3:
+		case TouchAreas.CIVILIZATION_3_ID:
 			if (civilisationAreas[2] == player.getId()) {
 				civilisationAreas[2] = -1;
 				player.removePawns(1);
@@ -359,7 +323,7 @@ public class AreasHandler {
 			} else {
 				return 0;
 			}
-		case AREA_CIVILIZATION_4:
+		case TouchAreas.CIVILIZATION_4_ID:
 			if (civilisationAreas[3] == player.getId()) {
 				civilisationAreas[3] = -1;
 				player.removePawns(1);
@@ -383,8 +347,8 @@ public class AreasHandler {
 	}
 
 	public static boolean isCommodityArea(int areaId) {
-		if (areaId == AREA_FOOD || areaId == AREA_WOOD || areaId == AREA_COPPER || areaId == AREA_STONE
-				|| areaId == AREA_GOLD) {
+		if (areaId == TouchAreas.FOOD_ID || areaId == TouchAreas.WOOD_ID || areaId == TouchAreas.COPPER_ID
+				|| areaId == TouchAreas.STONE_ID || areaId == TouchAreas.GOLD_ID) {
 			return true;
 		}
 
@@ -392,7 +356,7 @@ public class AreasHandler {
 	}
 
 	public static boolean isVillageArea(int areaId) {
-		if (areaId == AREA_FARM || areaId == AREA_HUT || areaId == AREA_FACTORY) {
+		if (areaId == TouchAreas.FARM_ID || areaId == TouchAreas.HUT_ID || areaId == TouchAreas.FACTORY_ID) {
 			return true;
 		}
 
@@ -400,8 +364,8 @@ public class AreasHandler {
 	}
 
 	public static boolean isBuildingArea(int areaId) {
-		if (areaId == AREA_BUILDING_1 || areaId == AREA_BUILDING_2 || areaId == AREA_BUILDING_3
-				|| areaId == AREA_BUILDING_4) {
+		if (areaId == TouchAreas.BUILDING_1_ID || areaId == TouchAreas.BUILDING_2_ID
+				|| areaId == TouchAreas.BUILDING_3_ID || areaId == TouchAreas.BUILDING_4_ID) {
 			return true;
 		}
 
@@ -409,8 +373,8 @@ public class AreasHandler {
 	}
 
 	public static boolean isCivilizationArea(int areaId) {
-		if (areaId == AREA_CIVILIZATION_1 || areaId == AREA_CIVILIZATION_2 || areaId == AREA_CIVILIZATION_3
-				|| areaId == AREA_CIVILIZATION_4) {
+		if (areaId == TouchAreas.CIVILIZATION_1_ID || areaId == TouchAreas.CIVILIZATION_2_ID
+				|| areaId == TouchAreas.CIVILIZATION_3_ID || areaId == TouchAreas.CIVILIZATION_4_ID) {
 			return true;
 		}
 
