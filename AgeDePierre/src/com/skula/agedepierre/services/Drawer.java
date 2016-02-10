@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
@@ -17,7 +18,6 @@ import com.skula.agedepierre.models.Point;
 public class Drawer {
 	private static final int SCREEN_WIDTH = 1280;
 	private static final int SCREEN_HEIGHT = 736;
-	private static final Rect SCREEN_RECT = new Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	private int BACKGROUND_WIDTH;
 	private int BACKGROUND_HEIGHT;
@@ -40,43 +40,60 @@ public class Drawer {
 
 	public void draw(Canvas c) {
 		drawBackground(c);
-		// drawCommodities(c);
-		//drawBuildings(c);
-		//drawCivilizations(c);
+		drawCommodities(c);
+		drawBuildings(c);
+		// drawCivilizations(c);
 		drawPawns(c);
 		// drawPlayers(c);
-
-		int w = lib.get(R.drawable.pawn_blue).getWidth();
-		int h = lib.get(R.drawable.pawn_blue).getHeight();
-		c.drawText(w + ", " + h, 50, 50, paint);
 	}
 
 	public void drawBackground(Canvas c) {
-		c.drawBitmap(lib.get(R.drawable.background), new Rect(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT), SCREEN_RECT,
-				paint);
+		c.drawBitmap(lib.get(R.drawable.background), new Rect(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT), new Rect(0,
+				0, SCREEN_WIDTH, SCREEN_HEIGHT), paint);
 	}
 
 	private void drawCommodities(Canvas c) {
-
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(22f);
+		GameBoard gBoard = gEngine.getGameBoard();
+		c.drawText(""+gBoard.getWood(), DrawerAreas.COUNT_LEFT_WOOD.getX(), DrawerAreas.COUNT_LEFT_WOOD.getY(),
+				paint);
+		c.drawText("" + gBoard.getCopper(), DrawerAreas.COUNT_LEFT_COPPER.getX(),
+				DrawerAreas.COUNT_LEFT_COPPER.getY(), paint);
+		paint.setColor(Color.BLACK);
+		c.drawText("" + gBoard.getStone(), DrawerAreas.COUNT_LEFT_STONE.getX(), DrawerAreas.COUNT_LEFT_STONE.getY(),
+				paint);
+		c.drawText("" + gBoard.getGold(), DrawerAreas.COUNT_LEFT_GOLD.getX(), DrawerAreas.COUNT_LEFT_GOLD.getY(),
+				paint);
 	}
 
 	private void drawBuildings(Canvas c) {
 		GameBoard gBoard = gEngine.getGameBoard();
+		paint.setColor(Color.WHITE);
+		paint.setTextSize(18f);
 		int cpt = 1;
 		for (List<Building> l : gBoard.getBuildings()) {
 			if (l.size() > 0) {
 				switch (cpt) {
 				case 1:
 					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_1);
+					c.drawText("x " + l.size(), DrawerAreas.TILE_BUILDING_1.clone(100, 115).getX(),
+							DrawerAreas.TILE_BUILDING_1.clone(100, 115).getY(), paint);
 					break;
 				case 2:
 					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_2);
+					c.drawText("x " + l.size(), DrawerAreas.TILE_BUILDING_2.clone(100, 115).getX(),
+							DrawerAreas.TILE_BUILDING_2.clone(100, 115).getY(), paint);
 					break;
 				case 3:
 					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_3);
+					c.drawText("x " + l.size(), DrawerAreas.TILE_BUILDING_3.clone(100, 115).getX(),
+							DrawerAreas.TILE_BUILDING_3.clone(100, 115).getY(), paint);
 					break;
 				case 4:
 					drawPic(c, l.get(0).getPictId(), DrawerAreas.TILE_BUILDING_4);
+					c.drawText("x " + l.size(), DrawerAreas.TILE_BUILDING_4.clone(100, 115).getX(),
+							DrawerAreas.TILE_BUILDING_4.clone(100, 115).getY(), paint);
 					break;
 				}
 			}

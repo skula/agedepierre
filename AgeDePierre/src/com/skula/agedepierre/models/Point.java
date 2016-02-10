@@ -9,6 +9,10 @@ public class Point {
 		this.y = y;
 	}
 
+	public Point clone(int x, int y){
+		return new Point(this.x + x, this.y + y);
+	}
+	
 	public int getX() {
 		return this.x;
 	}

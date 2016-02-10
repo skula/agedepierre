@@ -3,6 +3,11 @@ package com.skula.agedepierre.cnst;
 import com.skula.agedepierre.models.Point;
 
 public class DrawerAreas {
+	public static final Point COUNT_LEFT_WOOD = new Point(360, 75);
+	public static final Point COUNT_LEFT_COPPER = new Point(750, 80);
+	public static final Point COUNT_LEFT_STONE = new Point(1110, 80);
+	public static final Point COUNT_LEFT_GOLD = new Point(1180, 340);
+	
 	public static final Point PAWN_FOOD = new Point(0, 0);
 	public static final Point PAWN_WOOD_1 = new Point(357, 111); // ok
 	public static final Point PAWN_WOOD_2 = new Point(404, 122); // ok
@@ -43,10 +48,10 @@ public class DrawerAreas {
 	public static final Point PAWN_BUILDING_2 = new Point(0, 0);
 	public static final Point PAWN_BUILDING_3 = new Point(0, 0);
 	public static final Point PAWN_BUILDING_4 = new Point(0, 0);
-	public static final Point TILE_BUILDING_1 = new Point(0, 0);
-	public static final Point TILE_BUILDING_2 = new Point(0, 0);
-	public static final Point TILE_BUILDING_3 = new Point(0, 0);
-	public static final Point TILE_BUILDING_4 = new Point(0, 0);
+	public static final Point TILE_BUILDING_1 = new Point(20, 605);
+	public static final Point TILE_BUILDING_2 = new Point(160, 605);
+	public static final Point TILE_BUILDING_3 = new Point(305, 605);
+	public static final Point TILE_BUILDING_4 = new Point(445, 605);
 	public static final Point PAWN_CIVILIZATION_1 = new Point(0, 0);
 	public static final Point PAWN_CIVILIZATION_2 = new Point(0, 0);
 	public static final Point PAWN_CIVILIZATION_3 = new Point(0, 0);

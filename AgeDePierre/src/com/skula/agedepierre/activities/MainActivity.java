@@ -13,6 +13,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(new BoardView(this, new GameEngine(2)));
+		setContentView(new BoardView(this, new GameEngine(4)));
 	}
 }
