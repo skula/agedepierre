@@ -45,6 +45,10 @@ public class PictureLibrary {
 		this.map.put(R.drawable.building20, BitmapFactory.decodeResource(res, R.drawable.building20));
 		this.map.put(R.drawable.building21, BitmapFactory.decodeResource(res, R.drawable.building21));
 		this.map.put(R.drawable.building22, BitmapFactory.decodeResource(res, R.drawable.building22));
+		this.map.put(R.drawable.item_farm, BitmapFactory.decodeResource(res, R.drawable.item_farm));
+		this.map.put(R.drawable.item_food, BitmapFactory.decodeResource(res, R.drawable.item_food));
+		this.map.put(R.drawable.item_building, BitmapFactory.decodeResource(res, R.drawable.item_building));
+		this.map.put(R.drawable.item_pawn_blue, BitmapFactory.decodeResource(res, R.drawable.item_pawn_blue));
 	}
 
 	public Bitmap get(int id) {

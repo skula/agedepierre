@@ -41,14 +41,22 @@ public class Drawer {
 
 	public void draw(Canvas c) {
 		drawBackground(c);
+		drawPlayer(c);
 		drawCommodities(c);
 		drawBuildings(c);
 		// drawCivilizations(c);
 		drawPawns(c);
 		// drawPlayers(c);
 
-		drawTouchAreas(c);
+		//drawTouchAreas(c);
+	}
+
+	private void drawPlayer(Canvas c) {
 		drawPic(c, R.drawable.paper, new Point(0,0));
+		drawPic(c, R.drawable.item_pawn_blue, new Point(20,40));
+		drawPic(c, R.drawable.item_food, new Point(100,40));
+		drawPic(c, R.drawable.item_farm, new Point(180,40));
+		
 	}
 
 	private void drawTouchAreas(Canvas c) {

@@ -69,6 +69,6 @@ public class TouchAreas {
 	public static final int BTN_SEL_TOOL_CONFIRM_ID = 25;
 	
 	// UI
-	public static final Rect BTN_SEL_PLAYER = new Rect(30, 30, 200, 200);
+	public static final Rect BTN_SEL_PLAYER = new Rect(10, 10, 250, 210);
 	public static final int BTN_SEL_PLAYER_ID = 26;
 }
