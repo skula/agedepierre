@@ -17,6 +17,7 @@ public class PictureLibrary {
 	public PictureLibrary(Resources res) {
 		this.map = new HashMap<Integer, Bitmap>();
 		this.map.put(R.drawable.background, BitmapFactory.decodeResource(res, R.drawable.background));
+		this.map.put(R.drawable.paper, BitmapFactory.decodeResource(res, R.drawable.paper));
 		this.map.put(R.drawable.pawn_blue, BitmapFactory.decodeResource(res, R.drawable.pawn_blue));
 		this.map.put(R.drawable.pawn_green, BitmapFactory.decodeResource(res, R.drawable.pawn_green));
 		this.map.put(R.drawable.pawn_yellow, BitmapFactory.decodeResource(res, R.drawable.pawn_yellow));

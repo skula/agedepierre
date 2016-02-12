@@ -48,6 +48,7 @@ public class Drawer {
 		// drawPlayers(c);
 
 		drawTouchAreas(c);
+		drawPic(c, R.drawable.paper, new Point(0,0));
 	}
 
 	private void drawTouchAreas(Canvas c) {
