@@ -27,23 +27,23 @@ public class TouchAreas {
 	public static final int FACTORY_ID = 8;
 	
 	// batiments
-	public static final Rect BUILDING_1 = new Rect(0, 0, 10, 10);
+	public static final Rect BUILDING_1 = new Rect(12, 600, 149, 730);
 	public static final int BUILDING_1_ID = 9;
-	public static final Rect BUILDING_2 = new Rect(0, 0, 10, 10);
+	public static final Rect BUILDING_2 = new Rect(151, 600, 292, 730);
 	public static final int BUILDING_2_ID = 10;
-	public static final Rect BUILDING_3 = new Rect(0, 0, 10, 10);
+	public static final Rect BUILDING_3 = new Rect(294, 600, 435, 730);
 	public static final int BUILDING_3_ID = 11;
-	public static final Rect BUILDING_4 = new Rect(0, 0, 10, 10);
+	public static final Rect BUILDING_4 = new Rect(437, 600, 570, 730);
 	public static final int BUILDING_4_ID = 12;
 
 	// civilisations
-	public static final Rect CIVILIZATION_1 = new Rect(0, 0, 10, 10);
+	public static final Rect CIVILIZATION_1 = new Rect(627, 500, 785, 730);
 	public static final int CIVILIZATION_1_ID = 13;
-	public static final Rect CIVILIZATION_2 = new Rect(0, 0, 10, 10);
+	public static final Rect CIVILIZATION_2 = new Rect(787, 500, 945, 730);
 	public static final int CIVILIZATION_2_ID = 14;
-	public static final Rect CIVILIZATION_3 = new Rect(0, 0, 10, 10);
+	public static final Rect CIVILIZATION_3 = new Rect(947, 500, 1103, 730);
 	public static final int CIVILIZATION_3_ID = 15;
-	public static final Rect CIVILIZATION_4 = new Rect(0, 0, 10, 10);
+	public static final Rect CIVILIZATION_4 = new Rect(1105, 500, 1261, 730);
 	public static final int CIVILIZATION_4_ID = 16;
 	
 	// fenetre de choix des ressources
@@ -60,11 +60,15 @@ public class TouchAreas {
 	public static final Rect BTN_SEL_COMMODITY_CONFIRM = new Rect(0, 0, 10, 10);
 	public static final int BTN_SEL_COMMODITY_CONFIRM_ID = 22;
 	
-	// fenetre de lancÃ© de dÃ©s
+	// fenetre de lancé de dés
 	public static final Rect BTN_SEL_TOOL = new Rect(0, 0, 10, 10);
 	public static final int BTN_SEL_TOOL_ID = 23;
 	public static final Rect BTN_SEL_TOOL_RESET = new Rect(0, 0, 10, 10);
 	public static final int BTN_SEL_TOOL_RESET_ID = 24;
 	public static final Rect BTN_SEL_TOOL_CONFIRM = new Rect(0, 0, 10, 10);
 	public static final int BTN_SEL_TOOL_CONFIRM_ID = 25;
+	
+	// UI
+	public static final Rect BTN_SEL_PLAYER = new Rect(30, 30, 200, 200);
+	public static final int BTN_SEL_PLAYER_ID = 26;
 }

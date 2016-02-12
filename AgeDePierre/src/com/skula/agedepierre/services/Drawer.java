@@ -84,6 +84,7 @@ public class Drawer {
 		c.drawRect(TouchAreas.BTN_SEL_TOOL, paint);
 		c.drawRect(TouchAreas.BTN_SEL_TOOL_RESET, paint);
 		c.drawRect(TouchAreas.BTN_SEL_TOOL_CONFIRM, paint);
+		c.drawRect(TouchAreas.BTN_SEL_PLAYER, paint);
 	}
 
 	public void drawBackground(Canvas c) {
