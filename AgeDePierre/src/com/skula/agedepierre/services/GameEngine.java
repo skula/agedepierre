@@ -20,7 +20,8 @@ public class GameEngine {
 	private GameBoard gameBoard;
 	private PawnsManager pawnsManager;
 	private WindowFocus winFocus;
-
+	private int playerUIItem;
+	
 	// variables temporaires
 	private int putAreaId;
 	private DiceRoll diceRoll;
@@ -32,6 +33,7 @@ public class GameEngine {
 		this.putAreaId = TouchAreas.NONE;
 		this.phase = Phase.PUT;
 		this.token = 0;
+		this.playerUIItem = this.token;
 		this.roundToken = 0;
 		this.players = new Player[nPlayers];
 		for (int i = 0; i < nPlayers; i++) {
@@ -451,6 +453,14 @@ public class GameEngine {
 		for (int i : commoditiesSel) {
 			commoditiesSel[i] = 0;
 		}
+	}
+	
+	public Player getPlayer(int id){
+		return players[id];
+	}
+	
+	public Player getPlayerUIItem(){
+		return players[playerUIItem];
 	}
 
 	public GameBoard getGameBoard() {

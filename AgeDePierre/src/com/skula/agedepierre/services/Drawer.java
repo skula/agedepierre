@@ -14,6 +14,7 @@ import com.skula.agedepierre.cnst.PictureLibrary;
 import com.skula.agedepierre.cnst.TouchAreas;
 import com.skula.agedepierre.models.Building;
 import com.skula.agedepierre.models.GameBoard;
+import com.skula.agedepierre.models.Player;
 import com.skula.agedepierre.models.Point;
 
 public class Drawer {
@@ -52,11 +53,44 @@ public class Drawer {
 	}
 
 	private void drawPlayer(Canvas c) {
+		paint.setTextSize(18f);
+		paint.setColor(Color.BLACK);
+		Player p = gEngine.getPlayerUIItem();
 		drawPic(c, R.drawable.paper, new Point(0,0));
-		drawPic(c, R.drawable.item_pawn_blue, new Point(20,40));
-		drawPic(c, R.drawable.item_food, new Point(100,40));
-		drawPic(c, R.drawable.item_farm, new Point(180,40));
+		int pId = 0;
+		switch (p.getId()) {
+		case 0:
+			pId =  R.drawable.item_pawn_red;
+			break;
+		case 1:
+			pId = R.drawable.item_pawn_blue;
+			break;
+		case 2:
+			pId = R.drawable.item_pawn_yellow;
+			break;
+		case 3:
+			pId = R.drawable.item_pawn_green;
+			break;
+		}
+		drawPic(c, pId, new Point(125,15));
+		c.drawText(""+p.getPawnLeft(), 160, 40, paint);
+		drawPic(c, R.drawable.item_farm, new Point(30,60));
+		c.drawText(""+p.getFarm(), 70, 85, paint);
+		drawPic(c, R.drawable.item_food, new Point(100,60));
+		c.drawText(""+p.getFood(), 140, 85, paint);
+		drawPic(c, R.drawable.item_building, new Point(170,60));
+		c.drawText(""+p.getBuildings().size(), 210, 85, paint);
 		
+		drawPic(c, R.drawable.item_wood, new Point(30,100));
+		c.drawText(""+p.getWood(), 70, 125, paint);
+		drawPic(c, R.drawable.item_copper, new Point(90,100));
+		c.drawText(""+p.getCopper(), 130, 125, paint);
+		drawPic(c, R.drawable.item_stone, new Point(150,100));
+		c.drawText(""+p.getStone(), 190, 125, paint);
+		drawPic(c, R.drawable.item_gold, new Point(210,100));
+		c.drawText(""+p.getGold(), 250, 125, paint);
+		
+		drawPic(c, R.drawable.item_tool, new Point(30,145));
 	}
 
 	private void drawTouchAreas(Canvas c) {
