@@ -50,6 +50,7 @@ public class Drawer {
 		// drawPlayers(c);
 
 		//drawTouchAreas(c);
+		drawPic(c, R.drawable.civ, new Point(0,0));
 	}
 
 	private void drawPlayer(Canvas c) {
