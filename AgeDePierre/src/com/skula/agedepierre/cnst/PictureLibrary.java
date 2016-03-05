@@ -21,7 +21,7 @@ public class PictureLibrary {
 		this.map.put(R.drawable.pawn_green, BitmapFactory.decodeResource(res, R.drawable.pawn_green));
 		this.map.put(R.drawable.pawn_yellow, BitmapFactory.decodeResource(res, R.drawable.pawn_yellow));
 		this.map.put(R.drawable.pawn_red, BitmapFactory.decodeResource(res, R.drawable.pawn_red));
-		this.map.put(R.drawable.civ0, BitmapFactory.decodeResource(res, R.drawable.civ0));
+		this.map.put(R.drawable.civilization_1, BitmapFactory.decodeResource(res, R.drawable.civilization_1));
 		this.map.put(R.drawable.building1, BitmapFactory.decodeResource(res, R.drawable.building1));
 		this.map.put(R.drawable.building2, BitmapFactory.decodeResource(res, R.drawable.building2));
 		this.map.put(R.drawable.building3, BitmapFactory.decodeResource(res, R.drawable.building3));
@@ -58,7 +58,6 @@ public class PictureLibrary {
 		this.map.put(R.drawable.item_pawn_green, BitmapFactory.decodeResource(res, R.drawable.item_pawn_green));
 		this.map.put(R.drawable.item_pawn_red, BitmapFactory.decodeResource(res, R.drawable.item_pawn_red));
 		this.map.put(R.drawable.item_pawn_yellow, BitmapFactory.decodeResource(res, R.drawable.item_pawn_yellow));
-		this.map.put(R.drawable.civ, BitmapFactory.decodeResource(res, R.drawable.civ));
 	}
 
 	public Bitmap get(int id) {

@@ -52,7 +52,7 @@ public class DrawerAreas {
 	public static final Point TILE_BUILDING_2 = new Point(160, 605);
 	public static final Point TILE_BUILDING_3 = new Point(305, 605);
 	public static final Point TILE_BUILDING_4 = new Point(445, 605);
-	public static final Point PAWN_CIVILIZATION_1 = new Point(0, 0);
+	public static final Point PAWN_CIVILIZATION_1 = new Point(645, 550);
 	public static final Point PAWN_CIVILIZATION_2 = new Point(0, 0);
 	public static final Point PAWN_CIVILIZATION_3 = new Point(0, 0);
 	public static final Point PAWN_CIVILIZATION_4 = new Point(0, 0);

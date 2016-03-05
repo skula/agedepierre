@@ -50,7 +50,7 @@ public class Drawer {
 		// drawPlayers(c);
 
 		//drawTouchAreas(c);
-		drawPic(c, R.drawable.civ, new Point(0,0));
+		drawPic(c, R.drawable.civilization_1, DrawerAreas.PAWN_CIVILIZATION_1);
 	}
 
 	private void drawPlayer(Canvas c) {
